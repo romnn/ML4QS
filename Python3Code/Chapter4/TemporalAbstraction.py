@@ -87,11 +87,8 @@ class CategoricalAbstraction:
                 times = self.cache[self.to_string(pattern)]
             # Otherwise we identify the time points at which we observe the value.
             else:
-               
-                timestamp_rows = data_table[data_table[pattern[0]] > 0].index.values.tolist()
-               
-                times = [data_table.index.get_loc(i) for i in timestamp_rows]
-                self.cache[self.to_string(pattern)] = times
+                times = data_table[pattern[0]] > 0
+                self.cache[self.to_string(pattern)] = times 
 
         # If we have a complex pattern (<n> (b) <m> or <n> (c) <m>)
         elif len(pattern) == 3:
@@ -101,17 +98,24 @@ class CategoricalAbstraction:
 
             # If it co-occurs we take the intersection.
             if pattern[1] == self.co_occurs:
+                times = time_points_first_part & time_points_second_part 
                 # No use for co-occurences of the same patterns...
                 if pattern[0] == pattern[2]:
-                    times = []
-                else:
-                    times = list(set(time_points_first_part) & set(time_points_second_part))
+                    times[:] = False
+
             # Otherwise we take all time points from <m> at which we observed <n> within the given
             # window size.
             elif pattern[1] == self.before:
-                for t in time_points_second_part:
-                    if len([i for i in time_points_first_part if ((i >= t - window_size) & (i < t))]):
-                        times.append(t)
+                times = time_points_second_part.copy()
+                assert len(time_points_second_part) == len(data_table)
+                for t in data_table[time_points_second_part].index.tolist():
+                    idx_t = time_points_first_part.index.get_loc(t)
+                    window = time_points_first_part.iloc[idx_t - window_size:idx_t]
+                    has_pattern = sum(window) > 0
+                    if not has_pattern:
+                        times[t] = False
+
+        assert len(times) == len(data_table), "time must match size of data table"
         return times
 
     # Create a string representation of a pattern.
@@ -135,7 +139,7 @@ class CategoricalAbstraction:
             # Determine the times at which the pattern occurs.
             times = self.determine_pattern_times(data_table, pattern, window_size)
             # Compute the support
-            support = float(len(times))/len(data_table.index)
+            support = float(sum(times))/len(data_table.index)
             # If we meet the minimum support, append the selected patterns and set the
             # value to 1 at which it occurs.
             if support >= min_support:
@@ -143,7 +147,6 @@ class CategoricalAbstraction:
                 print(self.to_string(pattern))
                 # Set the occurrence of the pattern in the row to 0.
                 data_table[self.pattern_prefix + self.to_string(pattern)] = 0
-                #data_table[self.pattern_prefix + self.to_string(pattern)][times] = 1
                 data_table.iloc[times, data_table.columns.get_loc(self.pattern_prefix + self.to_string(pattern))] = 1
         return data_table, selected_patterns
 

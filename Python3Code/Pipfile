@@ -1,0 +1,26 @@
+[[source]]
+url = "https://pypi.python.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+Cython="*"
+gensim="*"
+inspyred="*"
+joblib="*"
+matplotlib="*"
+nltk="*"
+numpy="*"
+pandas="*"
+pyclust="*"
+pykalman="*"
+scikit-learn="*"
+scipy="*"
+sklearn="*"
+statsmodels="*"
+treelib="*"
+Unidecode="*"
+pyflux = {git = "https://github.com/RJT1990/pyflux"}
+pybrain = {git = "https://github.com/pybrain/pybrain"}
+python-levenshtein = "*"
+jupyter = "*"

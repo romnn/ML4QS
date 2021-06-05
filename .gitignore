@@ -1,4 +1,12 @@
 *.pyc
+.DS_Store
+.ipynb_checkpoints
 datasets
-PythonCode/intermediate_datafiles/
-PythonCode/Example_graphs/
+
+# we don't need python2 or R
+PythonCode/
+RCode/
+
+Python3Code/intermediate_datafiles/
+Python3Code/Example_graphs/
+Python3Code/figures/
