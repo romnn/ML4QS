@@ -9,6 +9,7 @@
 
 import math
 
+
 # The class represents a dynamical systems model.
 class Model:
 
@@ -68,18 +69,24 @@ class Model:
     # Some basic printing of the model.
     def print_model(self):
         for e in range(len(self.state_equations)):
-            print(str(self.state_names[e]) + ' = ',)
+            print(
+                str(self.state_names[e]) + " = ",
+            )
             print(self.state_equations[e])
 
     # Prints the model to a file with the generation of the high level optimization algorithm.
     def print_model_to_file(self, file, generation):
-        file.write('======================' + str(generation) + '======================\n')
+        file.write(
+            "======================" + str(generation) + "======================\n"
+        )
         for e in range(len(self.state_equations)):
-            file.write(str(self.state_names[e]) + ' = ' + str(self.state_equations[e]) + '\n')
+            file.write(
+                str(self.state_names[e]) + " = " + str(self.state_equations[e]) + "\n"
+            )
 
     # Return the model in a string representation.
     def to_string(self):
-        result = ''
+        result = ""
         for e in range(len(self.state_equations)):
             result += str(self.state_equations[e])
         return result
@@ -89,11 +96,11 @@ class Model:
     def execute_steps(self, steps):
 
         # Repeat for the given number of time steps.
-        for i in range(0,steps):
+        for i in range(0, steps):
 
             # Allocate memory for the state values and the predicted values.
-            self.state_values.append([0]*len(self.state_names))
-            self.predicted_values.append([0]*len(self.state_names))
+            self.state_values.append([0] * len(self.state_names))
+            self.predicted_values.append([0] * len(self.state_names))
             self.t += 1
 
             # Compute the predicted values based on the current values for the states.
@@ -115,13 +122,12 @@ class Model:
                 # And we add the prediction for the time point to the file.
                 self.predicted_values[self.t][v] = self.state_values[self.t][v]
 
-
     # This function return the values of the specified state from time point 0 to now.
     def get_values(self, state):
 
         # If we do not have any values, we do not do anything.
         if self.t == 0:
-            print('number of values ' + str(self.t))
+            print("number of values " + str(self.t))
         values = []
 
         # Get the index of the state

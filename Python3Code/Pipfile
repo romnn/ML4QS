@@ -3,6 +3,13 @@ url = "https://pypi.python.org/simple"
 verify_ssl = true
 name = "pypi"
 
+[dev-packages]
+flake8 = "*"
+black = "==21.5b2"
+isort = "*"
+pre-commit = "*"
+invoke = "*"
+
 [packages]
 Cython="*"
 gensim="*"
@@ -20,7 +27,7 @@ sklearn="*"
 statsmodels="*"
 treelib="*"
 Unidecode="*"
+jupyter = "*"
+python-levenshtein = "*"
 pyflux = {git = "https://github.com/RJT1990/pyflux"}
 pybrain = {git = "https://github.com/pybrain/pybrain"}
-python-levenshtein = "*"
-jupyter = "*"

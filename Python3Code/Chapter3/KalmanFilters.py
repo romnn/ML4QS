@@ -10,6 +10,7 @@
 import numpy as np
 from pykalman import KalmanFilter
 
+
 # Implements the Kalman filter for single columns.
 class KalmanFilters:
 
@@ -32,5 +33,5 @@ class KalmanFilters:
         # And apply the filter.
         (new_data, filtered_state_covariances) = kf.filter(numpy_matrix_state_with_mask)
 
-        data_table[col + '_kalman'] = new_data
+        data_table[col + "_kalman"] = new_data
         return data_table

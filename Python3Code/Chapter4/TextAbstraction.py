@@ -7,22 +7,23 @@
 #                                                            #
 ##############################################################
 
-from nltk import tokenize
-from nltk import parse
-from nltk.stem.snowball import SnowballStemmer
-import unicodedata
-import unidecode
-from nltk.corpus import stopwords
-import nltk
 import math
+import unicodedata
+
 import gensim
 import gensim.models.ldamodel as lda
+import nltk
+import unidecode
+from nltk import parse, tokenize
+from nltk.corpus import stopwords
+from nltk.stem.snowball import SnowballStemmer
+
 
 # This class includes a number of approaches that abstract text based data to structured features.
 class TextAbstraction:
 
-    col_name = 'words'
-    bow = 'bow'
+    col_name = "words"
+    bow = "bow"
 
     # Tokenize the text: identify sentences and words within sentences. Returns a list of words.
     def tokenization(self, text):
@@ -30,7 +31,7 @@ class TextAbstraction:
         sentences = tokenize.sent_tokenize(text)
         for sentence in sentences:
             words.extend(tokenize.word_tokenize(sentence))
-        words = list(filter(lambda x: x != '.', words))
+        words = list(filter(lambda x: x != ".", words))
         return words
 
     # Create a clean set of words which are lower case and do not include any undesired characters.
@@ -42,22 +43,21 @@ class TextAbstraction:
             word = word.lower()
             try:
                 # Use the proper coding.
-                word = word.decode('utf-8')
+                word = word.decode("utf-8")
             except:
                 word = word
                 # something went wrong with the decoding, don't care for now.
 
             word = unidecode.unidecode(word)
-            newText = ''
+            newText = ""
 
             # Select only the letters from the alphabet.
             for c in word:
-                if ((c >= 'a' and c <= 'z') or (c >= 'A' and c <= 'Z') or c == ' '):
+                if (c >= "a" and c <= "z") or (c >= "A" and c <= "Z") or c == " ":
                     newText = newText + c
             if len(newText) > 0:
                 new_words.append(newText)
         return new_words
-
 
     # Stem a list of words. Return the list of stemmed words.
     def stem(self, text):
@@ -69,7 +69,7 @@ class TextAbstraction:
 
     # Remove stopwords from a list of words. Returns the cleaned list.
     def remove_stop_words(self, text):
-        stopwordList = stopwords.words('english')
+        stopwordList = stopwords.words("english")
         names = nltk.corpus.names.words()
 
         newText = []
@@ -82,8 +82,8 @@ class TextAbstraction:
     # that are the combination of <n> words that occur adjacent.
     def form_n_grams(self, words, n):
         n_grams = []
-        for i in range(0, len(words)-n):
-            n_grams.append('_'.join(words[i:i+n]))
+        for i in range(0, len(words) - n):
+            n_grams.append("_".join(words[i : i + n]))
         return n_grams
 
     # Identify words in the specified columns, create n-grams. Returns the same
@@ -99,9 +99,9 @@ class TextAbstraction:
         # Pass all rows.
         for i in range(0, len(data_table.index)):
             words = []
-            text = ''
+            text = ""
             for col in cols:
-                text = text + ' ' + data_table[col][i]
+                text = text + " " + data_table[col][i]
 
             # Perform the NLP pipeline.
             words = self.tokenization(text)
@@ -128,11 +128,13 @@ class TextAbstraction:
 
         # Create columns for each word.
         for word in words:
-            data_table[cols[0] + '_bow_' + word] = 0
+            data_table[cols[0] + "_bow_" + word] = 0
 
             # And count the occurrences per row.
             for i in range(0, len(data_table.index)):
-                data_table.iloc[i, data_table.columns.get_loc(f'{cols[0]}_bow_{word}')] = data_table[self.col_name][i].count(word)
+                data_table.iloc[
+                    i, data_table.columns.get_loc(f"{cols[0]}_bow_{word}")
+                ] = data_table[self.col_name][i].count(word)
 
         # Remove the temporary column we had created for the cleaned lists of words.
         del data_table[self.col_name]
@@ -148,18 +150,25 @@ class TextAbstraction:
 
         # Create columns for each word.
         for word in words:
-            data_table[cols[0] + '_tf_idf_' + word] = 0.0
+            data_table[cols[0] + "_tf_idf_" + word] = 0.0
 
             for i in range(0, len(data_table.index)):
 
                 # And count the tf score.
                 tf = data_table[self.col_name][i].count(word)
-                data_table.iloc[i, data_table.columns.get_loc(f'{cols[0]}_tf_idf_{word}')] = tf
+                data_table.iloc[
+                    i, data_table.columns.get_loc(f"{cols[0]}_tf_idf_{word}")
+                ] = tf
 
             # Compute the idf score over all rows.
-            idf = math.log(float(len(data_table.index))/len(data_table.loc[data_table[cols[0] + '_tf_idf_' + word] > 0].index))
+            idf = math.log(
+                float(len(data_table.index))
+                / len(data_table.loc[data_table[cols[0] + "_tf_idf_" + word] > 0].index)
+            )
             # and multiply the rows with the idf.
-            data_table[cols[0] + '_tf_idf_' + word] = data_table[cols[0] + '_tf_idf_' + word].mul(idf)
+            data_table[cols[0] + "_tf_idf_" + word] = data_table[
+                cols[0] + "_tf_idf_" + word
+            ].mul(idf)
         # Remove the temporary column we had created for the cleaned lists of words.
         del data_table[self.col_name]
         return data_table
@@ -180,18 +189,21 @@ class TextAbstraction:
         model = lda.LdaModel(corpus, id2word=dict_topics, num_topics=n_topics)
 
         # Get the topics we found.
-        topics = model.show_topics(num_topics=n_topics, num_words=10, log=False, formatted=False)
+        topics = model.show_topics(
+            num_topics=n_topics, num_words=10, log=False, formatted=False
+        )
 
         # Create columns for the topics.
         for topic in range(0, n_topics):
-            data_table[f'{cols[0]}_topic_{topic}'] = 0.0
+            data_table[f"{cols[0]}_topic_{topic}"] = 0.0
 
         # Score the topics per row and set the values accordingly.
         for i in range(0, len(data_table.index)):
             topic_scores = model[dict_topics.doc2bow(data_table[self.col_name][i])]
             for score in topic_scores:
-                data_table.iloc[i, data_table.columns.get_loc(f'{cols[0]}_topic_{score[0]}')] = score[1]
+                data_table.iloc[
+                    i, data_table.columns.get_loc(f"{cols[0]}_topic_{score[0]}")
+                ] = score[1]
         # Remove the temporary column we had created for the cleaned lists of words.
         del data_table[self.col_name]
         return data_table
-
