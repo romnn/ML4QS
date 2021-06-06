@@ -10,6 +10,7 @@
 import numpy as np
 from pykalman import KalmanFilter
 
+
 # Implements the Kalman filter for single columns.
 class KalmanFilters:
 

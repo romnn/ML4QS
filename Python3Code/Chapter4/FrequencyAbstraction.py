@@ -8,6 +8,7 @@
 ##############################################################
 
 import itertools
+
 import numpy as np
 import pandas as pd
 
@@ -115,12 +116,19 @@ class FourierTransformation:
 
             # add the sma metric
             self.data_table[group[0]].rolling(self.window_size + 1).apply(
-                self.compute_signal_magnitude_area, args=(window_size,group,), raw=False
+                self.compute_signal_magnitude_area,
+                args=(
+                    window_size,
+                    group,
+                ),
+                raw=False,
             )
 
             sma_col_name = group_name + "_sma"
             self.data_table[sma_col_name] = np.nan
-            self.data_table.iloc[40:,self.data_table.columns.get_loc(sma_col_name)] = self.sma_list
+            self.data_table.iloc[
+                40:, self.data_table.columns.get_loc(sma_col_name)
+            ] = self.sma_list
             del self.sma_list[:]
 
         return self.data_table

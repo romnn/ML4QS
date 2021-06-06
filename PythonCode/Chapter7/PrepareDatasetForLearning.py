@@ -7,11 +7,13 @@
 #                                                            #
 ##############################################################
 
-from sklearn.model_selection import train_test_split
-import numpy as np
-import random
 import copy
+import random
+
+import numpy as np
 import pandas as pd
+from sklearn.model_selection import train_test_split
+
 
 # This class creates datasets that can be used by the learning algorithms. Up till now we have
 # assumed binary columns for each class, we will for instance introduce approaches to create

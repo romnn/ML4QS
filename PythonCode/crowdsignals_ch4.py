@@ -7,13 +7,13 @@
 #                                                            #
 ##############################################################
 
-from util.VisualizeDataset import VisualizeDataset
-from Chapter4.TemporalAbstraction import NumericalAbstraction
-from Chapter4.TemporalAbstraction import CategoricalAbstraction
-from Chapter4.FrequencyAbstraction import FourierTransformation
-from Chapter4.TextAbstraction import TextAbstraction
 import copy
+
 import pandas as pd
+from Chapter4.FrequencyAbstraction import FourierTransformation
+from Chapter4.TemporalAbstraction import CategoricalAbstraction, NumericalAbstraction
+from Chapter4.TextAbstraction import TextAbstraction
+from util.VisualizeDataset import VisualizeDataset
 
 # Let us create our visualization class again.
 DataViz = VisualizeDataset()

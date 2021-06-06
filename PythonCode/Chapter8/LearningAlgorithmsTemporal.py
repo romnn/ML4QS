@@ -7,29 +7,31 @@
 #                                                            #
 ##############################################################
 
-import pandas as pd
-import scipy.linalg
 import copy
 import random
-import numpy as np
-from scipy import linalg
-import inspyred
-from Chapter8.dynsys.Model import Model
-from Chapter8.dynsys.Evaluator import Evaluator
-from pybrain.structure import RecurrentNetwork
-from pybrain.structure import LinearLayer, SigmoidLayer, FullConnection
-from pybrain.datasets import SequentialDataSet
-from pybrain.supervised.trainers import BackpropTrainer
-from pybrain.supervised.trainers import RPropMinusTrainer
-from pybrain.tools.validation import testOnSequenceData
-from pybrain.tools.shortcuts import buildNetwork
-from Chapter7.Evaluation import ClassificationEvaluation
-from Chapter7.Evaluation import RegressionEvaluation
 import sys
-import matplotlib.pyplot as plot
-import pyflux as pf
-from statsmodels.tsa.arima_model import ARIMA
 
+import inspyred
+import matplotlib.pyplot as plot
+import numpy as np
+import pandas as pd
+import pyflux as pf
+import scipy.linalg
+from Chapter7.Evaluation import ClassificationEvaluation, RegressionEvaluation
+from Chapter8.dynsys.Evaluator import Evaluator
+from Chapter8.dynsys.Model import Model
+from pybrain.datasets import SequentialDataSet
+from pybrain.structure import (
+    FullConnection,
+    LinearLayer,
+    RecurrentNetwork,
+    SigmoidLayer,
+)
+from pybrain.supervised.trainers import BackpropTrainer, RPropMinusTrainer
+from pybrain.tools.shortcuts import buildNetwork
+from pybrain.tools.validation import testOnSequenceData
+from scipy import linalg
+from statsmodels.tsa.arima_model import ARIMA
 
 
 # The class includes several algorithms that capture the temporal dimension explicitly for

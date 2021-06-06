@@ -9,6 +9,7 @@
 
 import math
 
+
 # The class represents a dynamical systems model.
 class Model:
 

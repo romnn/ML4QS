@@ -7,11 +7,13 @@
 #                                                            #
 ##############################################################
 
-from inspyred.ec import emo
-import random
-from sklearn.metrics import mean_squared_error
 import copy
+import random
+
 import pandas as pd
+from inspyred.ec import emo
+from sklearn.metrics import mean_squared_error
+
 
 # This class evaluates a dynamical systems model.
 class Evaluator():

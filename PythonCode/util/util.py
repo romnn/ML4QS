@@ -1,7 +1,9 @@
-import scipy
 import copy
 import math
+
 import numpy as np
+import scipy
+
 # Not a class, just a bunch of useful functions.
 
 def normalize_dataset(data_table, columns):

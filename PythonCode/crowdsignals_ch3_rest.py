@@ -7,15 +7,15 @@
 #                                                            #
 ##############################################################
 
-from util.VisualizeDataset import VisualizeDataset
-from Chapter3.DataTransformation import LowPassFilter
-from Chapter3.DataTransformation import PrincipalComponentAnalysis
+import copy
+
+import matplotlib.pyplot as plot
+import numpy as np
+import pandas as pd
+from Chapter3.DataTransformation import LowPassFilter, PrincipalComponentAnalysis
 from Chapter3.ImputationMissingValues import ImputationMissingValues
 from Chapter3.KalmanFilters import KalmanFilters
-import copy
-import pandas as pd
-import numpy as np
-import matplotlib.pyplot as plot
+from util.VisualizeDataset import VisualizeDataset
 
 # Let is create our visualization class again.
 DataViz = VisualizeDataset()

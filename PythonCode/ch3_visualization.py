@@ -7,12 +7,13 @@
 #                                                            #
 ##############################################################
 
-import pandas as pd
-import numpy as np
-import matplotlib.pyplot as plot
 import math
-from scipy.stats import norm
+
+import matplotlib.pyplot as plot
+import numpy as np
+import pandas as pd
 from Chapter3.DataTransformation import LowPassFilter
+from scipy.stats import norm
 from sklearn.decomposition import PCA
 
 np.random.seed(0)

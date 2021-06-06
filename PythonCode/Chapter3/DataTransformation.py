@@ -7,13 +7,15 @@
 #                                                            #
 ##############################################################
 
-import numpy as np
-import matplotlib.pyplot as plot
-from sklearn.decomposition import PCA
-import math
 import copy
+import math
+
+import matplotlib.pyplot as plot
+import numpy as np
 import util.util as util
-from scipy.signal import butter, lfilter, filtfilt
+from scipy.signal import butter, filtfilt, lfilter
+from sklearn.decomposition import PCA
+
 
 # This class removes the high frequency data (that might be considered noise) from the data.
 class LowPassFilter:

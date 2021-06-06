@@ -7,16 +7,16 @@
 #                                                            #
 ##############################################################
 
-from Chapter7.LearningAlgorithms import ClassificationAlgorithms
-from Chapter7.Evaluation import ClassificationEvaluation
-from Chapter7.LearningAlgorithms import RegressionAlgorithms
-from Chapter7.Evaluation import RegressionEvaluation
-from scipy.stats import pearsonr
-import sys
 import copy
-import numpy as np
+import sys
 from operator import itemgetter
+
+import numpy as np
 import pandas as pd
+from Chapter7.Evaluation import ClassificationEvaluation, RegressionEvaluation
+from Chapter7.LearningAlgorithms import ClassificationAlgorithms, RegressionAlgorithms
+from scipy.stats import pearsonr
+
 
 # Specifies feature selection approaches for classification to identify the most important features.
 class FeatureSelectionClassification:

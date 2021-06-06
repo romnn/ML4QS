@@ -7,15 +7,16 @@
 #                                                            #
 ##############################################################
 
-import pandas as pd
-import numpy as np
-import matplotlib.pyplot as plot
-import math
 import copy
+import math
+import re
+
+import matplotlib.pyplot as plot
+import numpy as np
+import pandas as pd
+from Chapter4.FrequencyAbstraction import FourierTransformation
 from scipy.stats import norm
 from sklearn.decomposition import PCA
-from Chapter4.FrequencyAbstraction import FourierTransformation
-import re
 
 np.random.seed(0)
 

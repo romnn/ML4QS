@@ -7,30 +7,27 @@
 #                                                            #
 ##############################################################
 
-import pandas as pd
-import numpy as np
-import matplotlib.pyplot as plot
-import matplotlib.dates as md
-import math
 import copy
-from scipy.stats import norm
-from sklearn.decomposition import PCA
+import math
+import random
+import re
+
+import matplotlib.dates as md
+import matplotlib.pyplot as plot
+import numpy as np
+import pandas as pd
+import pyflux as pf
+import sklearn
+import statsmodels
 from Chapter4.FrequencyAbstraction import FourierTransformation
 from matplotlib.patches import Rectangle
-import re
-import sklearn
-import random
 from mpl_toolkits.mplot3d import Axes3D
 from pandas.tools.plotting import autocorrelation_plot
-from statsmodels.tsa.stattools import pacf
+from scipy.stats import norm
+from sklearn.decomposition import PCA
 from statsmodels.tsa.arima_model import ARIMA
-import pyflux as pf
 from statsmodels.tsa.seasonal import seasonal_decompose
-import statsmodels
-
-
-
-
+from statsmodels.tsa.stattools import pacf
 
 np.random.seed(0)
 

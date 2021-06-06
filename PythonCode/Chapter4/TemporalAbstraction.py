@@ -10,6 +10,7 @@
 import numpy as np
 import scipy.stats as stats
 
+
 # Class to abstract a history of numerical values we can use as an attribute.
 class NumericalAbstraction:
 

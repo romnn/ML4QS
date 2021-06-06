@@ -7,12 +7,15 @@
 #                                                            #
 ##############################################################
 
-from util.VisualizeDataset import VisualizeDataset
-from Chapter3.OutlierDetection import DistributionBasedOutlierDetection
-from Chapter3.OutlierDetection import DistanceBasedOutlierDetection
 import copy
-import pandas as pd
+
 import numpy as np
+import pandas as pd
+from Chapter3.OutlierDetection import (
+    DistanceBasedOutlierDetection,
+    DistributionBasedOutlierDetection,
+)
+from util.VisualizeDataset import VisualizeDataset
 
 # Let is create our visualization class again.
 DataViz = VisualizeDataset()

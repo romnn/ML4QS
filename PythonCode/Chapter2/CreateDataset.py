@@ -7,13 +7,14 @@
 #                                                            #
 ##############################################################
 
-import pandas as pd
-import numpy as np
-import re
 import copy
+import re
 from datetime import datetime, timedelta
-import matplotlib.pyplot as plot
+
 import matplotlib.dates as md
+import matplotlib.pyplot as plot
+import numpy as np
+import pandas as pd
 
 
 class CreateDataset():

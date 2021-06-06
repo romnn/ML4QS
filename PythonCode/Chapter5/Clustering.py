@@ -7,19 +7,23 @@
 #                                                            #
 ##############################################################
 
-from sklearn.cluster import KMeans
-from Chapter5.DistanceMetrics import InstanceDistanceMetrics
-import sklearn
-import pandas as pd
-import numpy as np
-from sklearn.metrics import silhouette_samples, silhouette_score
-from Chapter5.DistanceMetrics import PersonDistanceMetricsNoOrdering
-from Chapter5.DistanceMetrics import PersonDistanceMetricsOrdering
 import random
-import scipy
-from scipy.cluster.hierarchy import linkage, fcluster
-from sklearn.neighbors import DistanceMetric
+
+import numpy as np
+import pandas as pd
 import pyclust
+import scipy
+import sklearn
+from Chapter5.DistanceMetrics import (
+    InstanceDistanceMetrics,
+    PersonDistanceMetricsNoOrdering,
+    PersonDistanceMetricsOrdering,
+)
+from scipy.cluster.hierarchy import fcluster, linkage
+from sklearn.cluster import KMeans
+from sklearn.metrics import silhouette_samples, silhouette_score
+from sklearn.neighbors import DistanceMetric
+
 
 # Implementation of the non hierarchical clustering approaches.
 class NonHierarchicalClustering:

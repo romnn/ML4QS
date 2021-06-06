@@ -193,7 +193,7 @@ def main():
             ["like", "like", "like", "like", "like", "like", "like", "like"],
             ["line", "line", "line", "line", "line", "line", "line", "points"],
         )
-        
+
         DataViz.plot_dataset(
             dataset,
             [

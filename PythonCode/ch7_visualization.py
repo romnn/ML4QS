@@ -7,19 +7,20 @@
 #                                                            #
 ##############################################################
 
-import pandas as pd
-import numpy as np
-import matplotlib.pyplot as plot
-import math
 import copy
-from scipy.stats import norm
-from sklearn.decomposition import PCA
+import math
+import random
+import re
+
+import matplotlib.pyplot as plot
+import numpy as np
+import pandas as pd
+import sklearn
 from Chapter4.FrequencyAbstraction import FourierTransformation
 from matplotlib.patches import Rectangle
-import re
-import sklearn
-import random
 from mpl_toolkits.mplot3d import Axes3D
+from scipy.stats import norm
+from sklearn.decomposition import PCA
 
 np.random.seed(0)
 

@@ -7,16 +7,17 @@
 #                                                            #
 ##############################################################
 
-from nltk import tokenize
-from nltk import parse
-from nltk.stem.snowball import SnowballStemmer
-import unicodedata
-import unidecode
-from nltk.corpus import stopwords
-import nltk
 import math
+import unicodedata
+
 import gensim
 import gensim.models.ldamodel as lda
+import nltk
+import unidecode
+from nltk import parse, tokenize
+from nltk.corpus import stopwords
+from nltk.stem.snowball import SnowballStemmer
+
 
 # This class includes a number of approaches that abstract text based data to structured features.
 class TextAbstraction:

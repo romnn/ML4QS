@@ -7,13 +7,15 @@
 #                                                            #
 ##############################################################
 
-import scipy
+import copy
 import math
-from sklearn import mixture
+
 import numpy as np
 import pandas as pd
+import scipy
 import util.util as util
-import copy
+from sklearn import mixture
+
 
 # Class for outlier detection algorithms based on some distribution of the data. They
 # all consider only single points per row (i.e. one column).

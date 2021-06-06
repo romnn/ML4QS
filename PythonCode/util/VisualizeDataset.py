@@ -1,16 +1,18 @@
-import matplotlib.pyplot as plot
+import itertools
+import math
+import sys
+
+import dateutil
+import matplotlib.cm as cm
 import matplotlib.dates as md
+import matplotlib.patches as mpatches
+import matplotlib.pyplot as plot
 import numpy as np
 import pandas as pd
 from mpl_toolkits.mplot3d import Axes3D
-import matplotlib.patches as mpatches
-import matplotlib.cm as cm
 from scipy.cluster.hierarchy import dendrogram
-import itertools
 from scipy.optimize import curve_fit
-import math
-import sys
-import dateutil
+
 
 class VisualizeDataset:
 

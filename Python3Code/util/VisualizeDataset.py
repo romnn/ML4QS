@@ -47,12 +47,16 @@ class VisualizeDataset:
     # among multiple attributes (e.g. label which occurs as labelWalking, etc). In such a case they are plotted
     # in the same graph. The display should express whether points or a line should be plotted.
     # Match can be 'exact' or 'like'. Display can be 'points' or 'line'.
-    def plot_dataset(self, data_table, columns, match="like", display="line", figsize=None, save=True):
+    def plot_dataset(
+        self, data_table, columns, match="like", display="line", figsize=None, save=True
+    ):
         names = list(data_table.columns)
 
         # Create subplots if more columns are specified.
         if len(columns) > 1:
-            f, xar = plt.subplots(len(columns), figsize=figsize, sharex=True, sharey=False)
+            f, xar = plt.subplots(
+                len(columns), figsize=figsize, sharex=True, sharey=False
+            )
         else:
             f, xar = plt.subplots(figsize=figsize)
             xar = [xar]

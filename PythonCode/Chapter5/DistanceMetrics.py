@@ -9,14 +9,14 @@
 
 import math
 import numbers
+import sys
+
 import numpy as np
 import pandas as pd
-from scipy.stats import norm
-from scipy import stats
-import sys
-from sklearn.neighbors import DistanceMetric
 import sklearn
-
+from scipy import stats
+from scipy.stats import norm
+from sklearn.neighbors import DistanceMetric
 
 
 # Class defining the distance metrics that are not available as standard ones....

@@ -7,23 +7,17 @@
 #                                                            #
 ##############################################################
 
-from sklearn.neural_network import MLPClassifier
-from sklearn.neural_network import MLPRegressor
-from sklearn.svm import SVC
-from sklearn.svm import LinearSVC
-from sklearn.svm import SVR
-from sklearn.svm import LinearSVR
-from sklearn.neighbors import KNeighborsClassifier
-from sklearn.neighbors import KNeighborsRegressor
-from sklearn.tree import DecisionTreeClassifier
-from sklearn.tree import DecisionTreeRegressor
-from sklearn import tree
-from sklearn.naive_bayes import GaussianNB
-from sklearn.ensemble import RandomForestClassifier
-from sklearn.ensemble import RandomForestRegressor
-from sklearn.model_selection import GridSearchCV
-import pandas as pd
 import numpy as np
+import pandas as pd
+from sklearn import tree
+from sklearn.ensemble import RandomForestClassifier, RandomForestRegressor
+from sklearn.model_selection import GridSearchCV
+from sklearn.naive_bayes import GaussianNB
+from sklearn.neighbors import KNeighborsClassifier, KNeighborsRegressor
+from sklearn.neural_network import MLPClassifier, MLPRegressor
+from sklearn.svm import SVC, SVR, LinearSVC, LinearSVR
+from sklearn.tree import DecisionTreeClassifier, DecisionTreeRegressor
+
 
 class ClassificationAlgorithms:
 

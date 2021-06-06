@@ -7,10 +7,12 @@
 #                                                            #
 ##############################################################
 
-from sklearn import metrics
-import pandas as pd
-import numpy as np
 import math
+
+import numpy as np
+import pandas as pd
+from sklearn import metrics
+
 
 # Class for evaluation metrics of classification problems.
 class ClassificationEvaluation:
