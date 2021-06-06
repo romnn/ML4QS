@@ -32,7 +32,7 @@ class VisualizeDataset:
         self.figures_dir = Path("figures") / subdir
         self.figures_dir.mkdir(exist_ok=True, parents=True)
 
-    def save(self, plot_obj, formats=("png",)):  # 'svg'
+    def save(self, plot_obj, filename=None, formats=("pdf",)):
 
         fig_name = f"figure_{self.plot_number}"
 
@@ -47,14 +47,14 @@ class VisualizeDataset:
     # among multiple attributes (e.g. label which occurs as labelWalking, etc). In such a case they are plotted
     # in the same graph. The display should express whether points or a line should be plotted.
     # Match can be 'exact' or 'like'. Display can be 'points' or 'line'.
-    def plot_dataset(self, data_table, columns, match="like", display="line"):
+    def plot_dataset(self, data_table, columns, match="like", display="line", figsize=None, save=True):
         names = list(data_table.columns)
 
         # Create subplots if more columns are specified.
         if len(columns) > 1:
-            f, xar = plt.subplots(len(columns), sharex=True, sharey=False)
+            f, xar = plt.subplots(len(columns), figsize=figsize, sharex=True, sharey=False)
         else:
-            f, xar = plt.subplots()
+            f, xar = plt.subplots(figsize=figsize)
             xar = [xar]
 
         f.subplots_adjust(hspace=0.4)
@@ -131,7 +131,8 @@ class VisualizeDataset:
         # Make sure we get a nice figure with only a single x-axis and labels there.
         plt.setp([a.get_xticklabels() for a in f.axes[:-1]], visible=False)
         plt.xlabel("time")
-        self.save(plt)
+        if save:
+            self.save(plt)
         plt.show()
 
     def plot_xy(

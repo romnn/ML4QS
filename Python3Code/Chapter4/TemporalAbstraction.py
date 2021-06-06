@@ -17,7 +17,6 @@ class NumericalAbstraction:
     # For the slope we need a bit more work.
     # We create time points, assuming discrete time steps with fixed delta t:
     def get_slope(self, data):
-
         times = np.array(range(0, len(data.index)))
         data = data.astype(np.float32)
 
@@ -33,7 +32,10 @@ class NumericalAbstraction:
             return slope
 
     # TODO Add your own aggregation function here:
-    # def my_aggregation_function(self, data)
+    def get_mad(self, data):
+        # Median absolute deviation
+        mad = np.median(np.absolute(data - np.median(data)))
+        return mad
 
     # This function aggregates a list of values using the specified aggregation
     # function (which can be 'mean', 'max', 'min', 'median', 'std', 'slope')
@@ -52,8 +54,11 @@ class NumericalAbstraction:
             return data.rolling(window, min_periods=window_size).std()
         elif aggregation_function == "slope":
             return data.rolling(window, min_periods=window_size).apply(self.get_slope)
-
         # TODO: add your own aggregation function here
+        elif aggregation_function == "sum":
+            return data.rolling(window, min_periods=window_size).sum()
+        elif aggregation_function == "mad":
+            return data.rolling(window, min_periods=window_size).apply(self.get_mad)
         else:
             return np.nan
 
@@ -62,7 +67,6 @@ class NumericalAbstraction:
     ):
 
         for col in cols:
-
             aggregations = self.aggregate_value(
                 data_table[col], window_size, aggregation_function_name
             )

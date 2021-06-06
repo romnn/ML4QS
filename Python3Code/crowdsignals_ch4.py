@@ -38,7 +38,7 @@ def main():
 
     start_time = time.time()
     try:
-        dataset = pd.read_csv(DATA_PATH / DATASET_FNAME, index_col=0)
+        dataset = pd.read_csv(DATA_PATH / DATASET_FNAME, nrows=None, index_col=0)
         dataset.index = pd.to_datetime(dataset.index)
     except IOError as e:
         print("File not found, try to run previous crowdsignals scripts first!")
@@ -86,6 +86,7 @@ def main():
         fs = float(1000) / milliseconds_per_instance
         ws = int(float(10000) / milliseconds_per_instance)
         dataset = FreqAbs.abstract_frequency(dataset, ["acc_phone_x"], ws, fs)
+
         # Spectral analysis.
         DataViz.plot_dataset(
             dataset,
@@ -107,11 +108,20 @@ def main():
 
         selected_predictor_cols = [c for c in dataset.columns if not "label" in c]
 
-        dataset = NumAbs.abstract_numerical(
-            dataset, selected_predictor_cols, ws, "mean"
-        )
-        dataset = NumAbs.abstract_numerical(dataset, selected_predictor_cols, ws, "std")
-        # TODO: Add your own aggregation methods here
+        numerical_aggregations = [
+            (selected_predictor_cols, ws, "mean"),
+            (selected_predictor_cols, ws, "std"),
+            # TODO: Add your own aggregation methods here
+            (selected_predictor_cols, ws, "mad"),
+            (selected_predictor_cols, ws, "sum"),
+        ]
+
+        for _cols, _ws, _agg in numerical_aggregations:
+            print(
+                "computing %s for %d columns (window size %d) ..."
+                % (_agg, len(_cols), _ws)
+            )
+            dataset = NumAbs.abstract_numerical(dataset, _cols, _ws, _agg)
 
         DataViz.plot_dataset(
             dataset,
@@ -131,6 +141,7 @@ def main():
 
         CatAbs = CategoricalAbstraction()
 
+        print("computing categorical abstractions ...")
         dataset = CatAbs.abstract_categorical(
             dataset,
             ["label"],
@@ -140,27 +151,16 @@ def main():
             2,
         )
 
-        periodic_predictor_cols = [
-            "acc_phone_x",
-            "acc_phone_y",
-            "acc_phone_z",
-            "acc_watch_x",
-            "acc_watch_y",
-            "acc_watch_z",
-            "gyr_phone_x",
-            "gyr_phone_y",
-            "gyr_phone_z",
-            "gyr_watch_x",
-            "gyr_watch_y",
-            "gyr_watch_z",
-            "mag_phone_x",
-            "mag_phone_y",
-            "mag_phone_z",
-            "mag_watch_x",
-            "mag_watch_y",
-            "mag_watch_z",
-        ]
+        periodic_predictor_cols = {
+            "acc_phone": ["acc_phone_x", "acc_phone_y", "acc_phone_z"],
+            "acc_watch": ["acc_watch_x", "acc_watch_y", "acc_watch_z"],
+            "gyr_phone": ["gyr_phone_x", "gyr_phone_y", "gyr_phone_z"],
+            "gyr_watch": ["gyr_watch_x", "gyr_watch_y", "gyr_watch_z"],
+            "mag_phone": ["mag_phone_x", "mag_phone_y", "mag_phone_z"],
+            "mag_watch": ["mag_watch_x", "mag_watch_y", "mag_watch_z"],
+        }
 
+        print("computing frequency abstractions ...")
         dataset = FreqAbs.abstract_frequency(
             copy.deepcopy(dataset),
             periodic_predictor_cols,
@@ -176,6 +176,7 @@ def main():
         dataset = dataset.iloc[::skip_points, :]
 
         dataset.to_csv(DATA_PATH / RESULT_FNAME)
+        print("saved dataset to", DATA_PATH / RESULT_FNAME)
 
         DataViz.plot_dataset(
             dataset,
@@ -191,6 +192,20 @@ def main():
             ],
             ["like", "like", "like", "like", "like", "like", "like", "like"],
             ["line", "line", "line", "line", "line", "line", "line", "points"],
+        )
+        
+        DataViz.plot_dataset(
+            dataset,
+            [
+                "acc_phone_z_freq_energy",
+                "acc_phone_sma",
+                "acc_phone_z_temp_mad_ws_120",
+                "light_phone_lux_temp_sum_ws_120",
+                "label",
+            ],
+            ["like", "like", "like", "like", "like"],
+            ["line", "line", "line", "line", "points"],
+            # figsize=(10,12)
         )
         print("--- %s seconds ---" % (time.time() - start_time))
 

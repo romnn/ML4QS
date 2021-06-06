@@ -11,8 +11,7 @@ from invoke import task
 Path().expanduser()
 
 ROOT_DIR = Path(__file__).parent
-SOURCE_DIR = ROOT_DIR.joinpath("Python3Code")
-PYTHON_DIRS = [str(d) for d in [SOURCE_DIR]]
+PYTHON_DIRS = [str(d) for d in [ROOT_DIR]]
 
 
 def _delete_file(file):
@@ -39,7 +38,7 @@ def format(c, check=False):
 @task
 def lint(c):
     """Lint code"""
-    c.run("pipenv run flake8 {}".format(SOURCE_DIR))
+    c.run("pipenv run flake8 {}".format(ROOT_DIR))
 
 
 @task
